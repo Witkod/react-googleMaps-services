@@ -16,3 +16,5 @@ yarn.lock
 # Parcel related files
 dist/
 .cache/
+.parcel-cache
+dist
