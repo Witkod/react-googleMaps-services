@@ -26673,14 +26673,27 @@ try {
   var _styledComponents = require('styled-components');
   var _styledComponentsDefault = _parcelHelpers.interopDefault(_styledComponents);
   var _jsxFileName = "/Users/piotrek/Desktop/maps-lizy/src/ServiceMap.jsx", _s = $RefreshSig$();
+  const places = [{
+    lat: 50.58449,
+    lng: 4.07093,
+    type: "rgba(255,0,110,1)"
+  }, {
+    lat: 50.62561,
+    lng: 3.36836,
+    type: "rgba(250,50,20,1)"
+  }, {
+    lat: 50.67031308,
+    lng: 5.54147431,
+    type: "rgba(255,225,60)"
+  }];
   const libraries = ["places"];
   const mapContainerStyle = {
     width: '100%',
     height: '100%'
   };
   const center = {
-    lat: 43.653225,
-    lng: -79.3831886
+    lat: 50.58449,
+    lng: 4.07093
   };
   const options = {
     styles: _mapStylesDefault.default,
@@ -26711,7 +26724,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 42,
+          lineNumber: 48,
           columnNumber: 3
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_reactGoogleMapsApi.GoogleMap, {
@@ -26723,15 +26736,32 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 43,
+          lineNumber: 49,
           columnNumber: 5
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement(Locate, {
+      }, places.map(place => /*#__PURE__*/_reactDefault.default.createElement(_reactGoogleMapsApi.Marker, {
+        key: place.lat,
+        icon: {
+          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          strokeColor: place.type,
+          scale: 5
+        },
+        position: {
+          lat: place.lat,
+          lng: place.lng
+        },
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 50,
+          columnNumber: 29
+        }
+      }))), /*#__PURE__*/_reactDefault.default.createElement(Locate, {
         panTo: panTo,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 44,
+          lineNumber: 56,
           columnNumber: 5
         }
       }))
@@ -26756,7 +26786,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 50,
+          lineNumber: 62,
           columnNumber: 7
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_reactIconsIo.IoMdLocate, {
@@ -26765,7 +26795,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 53,
+          lineNumber: 65,
           columnNumber: 9
         }
       }))
