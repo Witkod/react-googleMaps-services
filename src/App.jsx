@@ -1,53 +1,101 @@
 import React from 'react';
-import {GoogleMap, Marker, useLoadScript} from '@react-google-maps/api'
-import mapStyles from './mapStyles';
-import {IoMdLocate} from 'react-icons/io';
+import {ServiceMap} from './ServiceMap';
+import styled from 'styled-components';
+import "./style.css"
 
-const libraries =  ["places"];
+import ServiceTypeMenu from "./ServiceTypeMenu"
+import ServiceDetails from "./ServiceDetails";
 
-const mapContainerStyle = {
-  width: '300px',
-  height: '300px'
-};
 
-const center = {
-  lat: 43.653225,
-  lng: -79.3831886
-};
-
-const options = {
-  styles: mapStyles,
-  disableDefaultUI: true,
-  zoomControl: true
-}
 
 export function App(){
-  const  {isLoaded, loadError} = useLoadScript({googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY , libraries: libraries});
+
+
+  return(
+    <UIMapSection>
+      <UISidePanel>
+        <ServiceTypeMenu/>
+        <ServiceDetails/> 
+      </UISidePanel>
+      <UIMapPanelWrapper>
+        <UISectionTitle>
+        <h2>Find nearest service</h2>
+        </UISectionTitle>
+        <UIMapPanel>
+          <UIMapHeader>
+          </UIMapHeader>
+          <UIMapBox>
+            <ServiceMap/>
+          </UIMapBox>
+          <UIMapFooter></UIMapFooter>
+        </UIMapPanel>
+      </UIMapPanelWrapper>
+      
+    </UIMapSection>);
+};
+
+const UIMapSection = styled.div`
+  display: flex;
+  width: 100vw;
+
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  padding: 5rem 0;
+`;
+
+const UISidePanel = styled.div`
+  display: flex;
+  flex-direction: column;
+
+
+  min-width: 200px;
+  padding: 0rem 1rem 3rem 3rem;
+  background: rgb(255,255,255);
+  border-right: 1px solid rgb(236, 236, 238);
+`;
+const UIMapPanelWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 4rem 6rem;
   
-  const mapRef = React.useRef();
-  const onMapLoad = React.useCallback( (map) => {mapRef.current = map;}, []);
+  background: rgb(246, 246, 246);
+`
 
-  const panTo = React.useCallback(({lat, lng}) => {
-    mapRef.current.panTo({lat,lng});
-    mapRef.current.setZoom(14);
- }, []);
+const UIMapPanel = styled.div`
 
-  if(loadError) return "Error loading maps";
-  if(!isLoaded) return "Loading maps";
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  background: rgb(255,255,255);
+  min-width: 200px;
+
+  border-radius: 10px;
+  border: 0.1rem solid rgb(236, 236, 238);
+  box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px;
+
+`
+
+const UIMapBox = styled.div`
+  
+  height: 400px;
+`
+const UIMapHeader = styled.div`
+
+`
+const UIMapFooter = styled.div`
+
+`
+const UISectionTitle = styled.div`
+  font-size: 2.5rem;
+  line-height: 4.8rem;
+  font-weight: 700;
+  padding: 0rem 6rem 4rem 0rem; 
+`
 
 
 
-  return(<div>
-    <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={8} options={options} onLoad={onMapLoad}></GoogleMap>
-    <Locate panTo={panTo}/>
-  </div>);
-}
 
-function Locate({panTo}){
-  return(<button onClick={()=>{
-    navigator.geolocation.getCurrentPosition((position)=>{
-      panTo({lat: position.coords.latitude, lng: position.coords.longitude})}, () => null)}}>
-    <IoMdLocate color='#ff2942' size='2em'/>
-  </button>)
-}
 
