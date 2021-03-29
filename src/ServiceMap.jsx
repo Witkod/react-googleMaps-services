@@ -4,14 +4,6 @@ import mapStyles from './mapStyles';
 import {IoMdLocate} from 'react-icons/io';
 import styled from 'styled-components';
 
-const places = [
-  {lat: 50.58449, lng: 4.07093, type: "rgba(255,0,110,1)"},
-  {lat: 50.62561, lng: 3.36836, type: "rgba(250,50,20,1)"},
-  {lat: 50.67031308, lng: 5.54147431, type: "rgba(255,225,60)"}
-]
-
-const libraries =  ["places"];
-
 const mapContainerStyle = {
   width: '100%',
   height: '100%',
@@ -28,8 +20,8 @@ const options = {
   zoomControl: true
 };
 
-export function ServiceMap(){
-  const  {isLoaded, loadError} = useLoadScript({googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY , libraries: libraries});
+export default function ServiceMap({places}){
+  const  {isLoaded, loadError} = useLoadScript({googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY });
   
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback( (map) => {mapRef.current = map;}, []);
@@ -53,7 +45,7 @@ export function ServiceMap(){
         scale: 5
     }} position={{lat: place.lat, lng: place.lng}}/>))}
     </GoogleMap>
-    <Locate panTo={panTo}/>
+    <UILocate><Locate panTo={panTo}/></UILocate>
   </UIMapContainer>);
 };
 
@@ -67,9 +59,18 @@ function Locate({panTo}){
   )
 };
 
+const UILocate = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  z-index: 10;
+`
 
 const UIMapContainer = styled.div`
   width:100%;
   height:100%;
+  position: relative;
 `
 

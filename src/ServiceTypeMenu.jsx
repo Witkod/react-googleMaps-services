@@ -2,15 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-export default function ServiceTypeMenu(){
+export default function ServiceTypeMenu({toggleFilterRepair, filterRepair,
+                                        toggleFilterTires, filterTires,
+                                        toggleFilterGlass, filterGlass}){
 
+  
   return(
   <UIServiceTypeMenu>
     <UITitle>Service Type</UITitle>
-    <UIServiceType>Diesel</UIServiceType>
-    <UIServiceType>Elektrisch</UIServiceType>
-    <UIServiceType>Glass breakage</UIServiceType>
-
+    <UIServiceType onClick={toggleFilterRepair} isFilteredType={filterRepair} color={"rgba(255,225,60)"}>Repair or maintenance</UIServiceType>
+    <UIServiceType onClick={toggleFilterTires} isFilteredType={filterTires} color={"rgba(30,210,100,1)"}>Tires</UIServiceType>
+    <UIServiceType onClick={toggleFilterGlass} isFilteredType={filterGlass} color={"rgba(250,50,20,1)"}>Glass breakage</UIServiceType>
   </UIServiceTypeMenu>);
 };
 
@@ -30,7 +32,6 @@ const UIServiceTypeMenu = styled.div`
 
 const UIServiceType = styled.div`
   border-radius: 8px;
-  border-color: rgba(255,0,110,1);
   border-style: solid;
   border-width: 2px;
   
@@ -47,6 +48,12 @@ const UIServiceType = styled.div`
   display:flex;
   flex-direction: column;
   justify-content: center;
+
+  border-color: ${props => {
+    if(props.isFilteredType) {return props.color}
+    else{
+     return "rgb(236, 236, 238)";
+   }}}
   
 
 `
