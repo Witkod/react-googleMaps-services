@@ -1,11 +1,12 @@
 {
   "name": "maps-lizy",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.html",
   "author": "<piotrek.witkos@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@react-google-maps/api": "^2.1.1",
+    "gh-pages": "^3.1.0",
     "parcel": "^2.0.0-beta.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

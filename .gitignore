@@ -18,3 +18,4 @@ dist/
 .cache/
 .parcel-cache
 dist
+.parcel-cache
